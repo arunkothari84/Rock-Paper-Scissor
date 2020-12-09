@@ -3,8 +3,8 @@
 import tensorflow as tf
 from keras.layers import Input, Lambda, Dense, Flatten
 from keras.models import Model
-from keras.applications import NASNetLarge
-from keras.applications.nasnet import preprocess_input
+from keras.applications.vgg19 import VGG19
+from keras.applications.vgg19 import preprocess_input
 from keras.preprocessing import image
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
@@ -15,7 +15,7 @@ from tensorflow.keras.callbacks import EarlyStopping
 
 
 IMAGE_SIZE = [224, 224]
-vgg = NASNetLarge(input_shape=(224, 224, 3),
+vgg = VGG19(input_shape=(224, 224, 3),
                                   weights='imagenet',
                                   include_top=False)
 
@@ -56,7 +56,6 @@ test_set = test_datagen.flow_from_directory('/content/gdrive/MyDrive/UntitledFol
                                             batch_size = 25,
                                             class_mode = 'categorical')
 
-custom_callbacks = [EarlyStopping(monitor='val_accuracy', mode='max')]
 
 r = model.fit(
   training_set,
